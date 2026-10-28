@@ -3,6 +3,7 @@
 # L'alternativa sarebbe di fare un downgrade a Python2.7, ma
 # non è garantito che tutte le altre dipendenze lo supporteranno.
 
+import os
 import time
 from io import BytesIO
 
@@ -25,10 +26,11 @@ from .rag import (
 
 app = FastAPI()
 
+load_dotenv()
 
 # --- init connection to Pepper ---
-pepper_ip = "192.168.1.13"
-pepper_port = 9559
+pepper_ip = os.environ["PEPPER_IP"]
+pepper_port = int(os.getenv("PEPPER_PORT", "9559"))
 pepper = init_pepper(pepper_ip, pepper_port)
 
 # --- initialize the pipeline, takes some time (is exec only once) ---
@@ -37,8 +39,6 @@ filepath = "./data/unipa_dataset.json"
 
 df = pd.read_json(filepath)
 raw_docs = setup_documents(df)
-
-load_dotenv()
 
 ds = setup_document_store(raw_docs, "./output/document_store.json")
 llm = setup_llm()

@@ -1,15 +1,19 @@
+import os
 import sys
 from datetime import datetime
 
 import pyaudio
 import requests
 import speech_recognition as sr
+from dotenv import load_dotenv
 
 from speech_to_text import Recorder
 
+load_dotenv()
+
 if __name__ == "__main__":
     # settings
-    api_url = "http://127.0.0.1:8000"
+    api_url = os.getenv("API_URL", "http://127.0.0.1:8000")
 
     output_filename = f"./data/{datetime.now().strftime('%d%m%Y_%H%M%S')}.wav"
 

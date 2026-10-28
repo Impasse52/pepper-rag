@@ -9,8 +9,6 @@ import time
 import qi
 
 # connection settings
-pepper_ip = "192.168.1.3"
-pepper_port = 9559
 tablet_ip = "198.18.0.1"
 
 targetName = "Face"
@@ -85,6 +83,10 @@ def init_pepper(ip: str, port: int):
 
 
 if __name__ == "__main__":
-    pepper = init_pepper(pepper_ip, pepper_port)
+    import os
 
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    pepper = init_pepper(os.environ["PEPPER_IP"], int(os.getenv("PEPPER_PORT", "9559")))
     pepper.tts("prova")

@@ -30,4 +30,4 @@ pip install -r requirements.txt # will take a long while
 ```
 
 
-Make sure to adjust Pepper's IP in `src/api.py`. Then, the server can be launched with `fastapi run src/api.py`. The client (`src/client.py`) must be launched from the host OS (i.e. from Windows directly). This can be done by running `python3 src/client.py`, starting the recording which will then be sent to the server.
+Copy `.env.example` to `.env` and match your variables to your setup. Then, the server can be launched with `fastapi run src/api.py`. The client (`src/client.py`) must be launched from the host OS (i.e. from Windows directly). This can be done by running `python3 src/client.py`, starting the recording which will then be sent to the server.
