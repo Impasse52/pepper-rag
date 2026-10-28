@@ -1,28 +1,30 @@
 import sys
-import requests
-import pyaudio
-from speech_to_text import Recorder
-import speech_recognition as sr
 from datetime import datetime
+
+import pyaudio
+import requests
+import speech_recognition as sr
+
+from speech_to_text import Recorder
 
 if __name__ == "__main__":
     # settings
     api_url = "http://127.0.0.1:8000"
 
-    output_filename = f"./data/{datetime.now().strftime("%d%m%Y_%H%M%S")}.wav"
+    output_filename = f"./data/{datetime.now().strftime('%d%m%Y_%H%M%S')}.wav"
 
     print("Recording...")
-    
+
     # --- record a spoken sentence ---
     rec = Recorder(
-        config=dict(
-            FORMAT=pyaudio.paInt16,
-            CHANNELS=2,
-            RATE=44100,
-            CHUNK=1024,
-            RECORD_SECONDS=5,
-            OUTPUT_FILENAME=output_filename,
-        )
+        config={
+            "FORMAT": pyaudio.paInt16,
+            "CHANNELS": 2,
+            "RATE": 44100,
+            "CHUNK": 1024,
+            "RECORD_SECONDS": 5,
+            "OUTPUT_FILENAME": output_filename,
+        }
     )
     rec.record()
 

@@ -1,6 +1,7 @@
+import wave
+
 import numpy as np
 import pyaudio
-import wave
 import speech_recognition as sr
 
 

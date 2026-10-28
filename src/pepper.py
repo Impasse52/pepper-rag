@@ -3,10 +3,10 @@
 
 """Example: A Simple class to get & read FaceDetected Events"""
 
-import qi
-import time
 import sys
+import time
 
+import qi
 
 # connection settings
 pepper_ip = "192.168.1.3"

@@ -1,24 +1,24 @@
+import os
+
+import pandas as pd
+import torch
 from haystack import Pipeline
-from haystack.document_stores.in_memory import InMemoryDocumentStore
-from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
-from haystack.components.preprocessors import DocumentCleaner, DocumentSplitter
+from haystack.components.builders import PromptBuilder
 from haystack.components.embedders import (
-    SentenceTransformersTextEmbedder,
     SentenceTransformersDocumentEmbedder,
+    SentenceTransformersTextEmbedder,
 )
 from haystack.components.generators import (
     HuggingFaceLocalGenerator,
 )
+from haystack.components.preprocessors import DocumentCleaner, DocumentSplitter
+from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
 from haystack.components.writers import DocumentWriter
+from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack.document_stores.types import DuplicatePolicy
-from haystack.components.builders import PromptBuilder
 from haystack.utils import ComponentDevice
 from transformers import pipeline
 
-import os
-import torch
-
-import pandas as pd
 from .util import preprocess
 
 

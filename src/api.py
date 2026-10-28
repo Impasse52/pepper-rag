@@ -3,30 +3,25 @@
 # L'alternativa sarebbe di fare un downgrade a Python2.7, ma
 # non è garantito che tutte le altre dipendenze lo supporteranno.
 
-import pandas as pd
-
-from fastapi import File, UploadFile
-
 import time
-from fastapi import FastAPI
-from .rag import (
-    setup_documents,
-    setup_document_store,
-    setup_llm,
-    setup_prompt_builder,
-    setup_machine_translation,
-    setup_pipeline,
-    query_rag,
-)
-
 from io import BytesIO
 
-from dotenv import load_dotenv
-
-from fastapi.responses import JSONResponse
+import pandas as pd
 import speech_recognition as sr
-from .pepper import init_pepper
+from dotenv import load_dotenv
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import JSONResponse
 
+from .pepper import init_pepper
+from .rag import (
+    query_rag,
+    setup_document_store,
+    setup_documents,
+    setup_llm,
+    setup_machine_translation,
+    setup_pipeline,
+    setup_prompt_builder,
+)
 
 app = FastAPI()
 
