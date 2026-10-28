@@ -1,5 +1,4 @@
 import os
-import sys
 from datetime import datetime
 
 import pyaudio
@@ -26,14 +25,11 @@ if __name__ == "__main__":
             "CHANNELS": 2,
             "RATE": 44100,
             "CHUNK": 1024,
-            "RECORD_SECONDS": 5,
+            "RECORD_SECONDS": int(os.getenv("RECORD_SECONDS", "5")),
             "OUTPUT_FILENAME": output_filename,
         }
     )
     rec.record()
-
-    # --- perform speech recognition on the recorded sentence ---
-    r = sr.Recognizer()
 
     # file_dir = "./data/harvard.wav"
     file_dir = output_filename

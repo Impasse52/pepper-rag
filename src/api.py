@@ -70,7 +70,7 @@ async def do_speech_recognition(file: UploadFile = File(...)):
     with sr.AudioFile(audio_file) as source:
         audio_data = r.record(source)
 
-    text = r.recognize_google(audio_data, language="it-IT")
+    text = r.recognize_google(audio_data, language=os.getenv("SR_LANGUAGE", "it-IT"))
 
     return {
         "text": text,
