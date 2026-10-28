@@ -1,10 +1,24 @@
 # pepper-rag
+A simple voice assistant for **Pepper** (SoftBank Robotics) that answers spoken questions in Italian about the University of Palermo (`data/unipa_dataset.json`, obtained through a custom crawler).
 
-Note that since this is mostly a proof of concept there are a few code smells:
-1. It is assumed that client and server are ran from the same machine (i.e. the client looks for FastAPI on localhost);
-2. Pepper's IP is hardcoded into `api.py`, although it is very easy to change.
+The system listens for a question, transcribes it and retrieves the most relevant passages from a knowledge base, which are then used to generate a grounded answer through a local LLM downloaded from HuggingFace. The pipeline is build with Haystack and served with FastAPI.
 
-Several dependencies (namely [qi](https://pypi.org/project/qi/)) rely on Linux. For this reason, this is the suggested operating system to run the project on. On Windows, WSL is supported and must be used in order to launch the server (`src/api.py`). 
+Developed as a proof of concept during a curricular internship at the Italian National Research Council (CNR).
+
+## How it works
+1. **Recording** (`src/client.py`, `src/speech_to_text.py`): the client records 5 seconds of audio from the microphone (PyAudio, 44.1 kHz) and uploads the WAV file to the server.
+2. **Speech recognition** (`POST /sr`): the server transcribes the audio with the SpeechRecognition library, using Google's web speech API with it-IT.
+3. **Retrieval** (`src/rag.py`): the question is embedded with thenlper/gte-large (Sentence Transformers) and the top 5 most similar chunks are retrieved by cosine similarity from a Haystack InMemoryDocumentStore.
+4. **Generation** (`GET /query`): the chunks and the question are inserted in a prompt for HuggingFaceH4/zephyr-7b-beta, loaded locally in 4-bit (NF4) quantization. The prompt asks the model to answer only from the context and to report the source URL.
+5. **Translation**: the model's answer is in English and is translated to Italian with Helsinki-NLP/opus-mt-en-it.
+Speech (`GET /tts`, `src/pepper.py`): the answer is sent to Pepper through the qi SDK and spoken with the robot's ALTextToSpeech service.
+
+The pipeline is built with Haystack and served with FastAPI.
+
+
+---
+
+Note that since this is a quick proof of concept there are a few relevant issues. Several dependencies (namely [qi](https://pypi.org/project/qi/)) rely on Linux. For this reason, this is the suggested operating system to run the project on. On Windows, WSL is supported and must be used in order to launch the server (`src/api.py`). 
 
 Remember to boot into WSL if on Windows (e.g. `wsl -d ubuntu`), then:
 ```bash
