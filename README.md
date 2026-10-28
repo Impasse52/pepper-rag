@@ -1,5 +1,5 @@
 # pepper-rag
-A simple voice assistant for **Pepper** (SoftBank Robotics) that answers spoken questions in Italian about the University of Palermo (`data/unipa_dataset.json`, obtained through a custom crawler).
+A simple voice assistant for **Pepper** (SoftBank Robotics) that answers spoken questions in Italian about the University of Palermo (`data/unipa_dataset.json`, obtained through a [custom crawler](https://github.com/pierfrancescomartinello/NLP-Project/blob/main/src/crawler.py)).
 
 The system listens for a question, transcribes it and retrieves the most relevant passages from a knowledge base, which are then used to generate a grounded answer through a local LLM downloaded from HuggingFace. The pipeline is build with Haystack and served with FastAPI.
 
